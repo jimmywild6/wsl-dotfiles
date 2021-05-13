@@ -1,0 +1,24 @@
+---
+- name: Install sysadmin packages
+  pacman:
+      name: "{{ sysadmin_packages }}"
+      state: present
+
+- name: Copy ssh config files
+  copy:
+    dest: "~/"
+    mode: 0755
+    src: .ssh
+
+- name: Copy bin dir
+  copy:
+    dest: "~/"
+    mode: 0755
+    src: bin
+
+- name: Copy gtk dir
+  copy:
+    dest: "~/.config/"
+    mode: 0755
+    src: gtk-3.0
+

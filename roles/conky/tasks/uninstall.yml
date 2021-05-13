@@ -1,0 +1,14 @@
+---
+
+- name: Ensure required packages are removed
+  become: yes
+  pacman:
+    extra_args: --recursive
+    name: conky
+    state: absent
+
+- name: Ensure config directory is removed
+  file:
+    path: "~/.config/conky"
+    state: absent
+

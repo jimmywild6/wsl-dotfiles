@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    users:
+      - username: k_13
+        oh_my_zsh:
+          - theme: powerlevel10k/powerlevel10k
+            third_party_theme_url: https://github.com/romkatv/powerlevel10k.git
+            theme_folder_name: powerlevel10k
+
+  tasks:
+    - name: List children
+      debug:
+        msg: "Family={{ item.0.username }} Child={{ item.1.third_party_theme_url }} Age={{ item.1.theme_folder_name }}"
+      with_subelements:
+        - "{{ users }}"
+        - oh_my_zsh
+

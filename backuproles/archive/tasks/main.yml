@@ -1,0 +1,9 @@
+---
+- name: Install zip archive utilities
+  pacman:
+    name:
+      - zip
+      - unzip
+    state: present
+  tags:
+    - zip

@@ -1,0 +1,13 @@
+---
+- name: Install terraform
+  pacman:
+    name: terraform
+    state: present
+  when : hashicorp.latest == true
+
+- name: Download specific terraform version
+  ansible.builtin.unarchive:
+    src: "{{ hashicorp.url }}"
+    dest: /usr/local/bin
+    list_files: yes
+    remote_src: yes

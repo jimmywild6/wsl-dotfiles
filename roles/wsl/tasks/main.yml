@@ -1,0 +1,7 @@
+---
+
+- name: Ensure wsl launcher script is present
+  copy:
+    dest: "~/"
+    mode: 0755
+    src: scripts

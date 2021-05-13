@@ -1,0 +1,53 @@
+#bin/bash
+
+PASSWD=`echo '' | base64 -d `
+SEARCH=$1
+ssh_keys=
+
+
+
+select login_method in ssh_keys root show_dns all_credentials
+do
+
+case $login_method in
+"root")
+        if [[ $SEARCH =~ ^[A-Za-z0-9].*.com$ ]] ;then
+            trim=$(echo "$SEARCH" | cut -d. -f1)
+            ID=`curl.exe  -u : --ntlm -s -L -b ~/cookie.txt  https://intranet.linkbynet.com/v7/api/1.1/Equipment.json/Search?Query=$trim -c ~/cookie.txt 2> /dev/null | cut -d , -f 1 | sed 's/\[{"Id"://'`
+            root_password=`curl.exe  -u : --ntlm -s -L -b ~/cookie.txt  https://intranet.linkbynet.com/v7/api/1.1/Equipment.json/$ID/Login/ListPrivate -c ~/cookie.txt | jq '.[]' |  jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" | cut -d= -f2 | /usr/bin/grep -i -A2 OS | /usr/bin/grep -A1 root | /usr/bin/grep -v root`
+            sshpass -p $root_password ssh -o 'StrictHostKeyChecking=no' root@$SEARCH
+        else 
+            ID=`curl.exe  -u : --ntlm -s -L -b ~/cookie.txt  https://intranet.linkbynet.com/v7/api/1.1/Equipment.json/Search?Query=$SEARCH -c ~/cookie.txt 2> /dev/null | cut -d , -f 1 | sed 's/\[{"Id"://'`
+            root_password=`curl.exe  -u : --ntlm -s -L -b ~/cookie.txt  https://intranet.linkbynet.com/v7/api/1.1/Equipment.json/$ID/Login/ListPrivate -c ~/cookie.txt | jq '.[]' |  jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" | cut -d= -f2 | /usr/bin/grep -i -A2 OS | /usr/bin/grep -A1 root | /usr/bin/grep -v root`
+            DNS=`curl.exe  -u : --ntlm -s -L -b ~/cookie.txt  https://intranet.linkbynet.com/v7/api/1.1/Equipment.json/${ID}/Login/DNS -c ~/cookie.txt 2> /dev/null | cut -d , -f 1 | sed 's/{"l_nom_dns"://' | sed 's/"//' |  sed 's/"//'`
+            sshpass -p $root_password ssh -o 'StrictHostKeyChecking=no'  root@$DNS
+        fi
+        ;;
+"ssh_keys")
+        if [[ $SEARCH =~ ^[A-Za-z0-9].*.com$ ]] ;then
+            ssh $SEARCH
+        else
+            ID=`curl.exe  -u : --ntlm -s -L -b ~/cookie.txt  https://intranet.linkbynet.com/v7/api/1.1/Equipment.json/Search?Query=$SEARCH -c ~/cookie.txt 2> /dev/null | cut -d , -f 1 | sed 's/\[{"Id"://'`
+            DNS=`curl.exe  -u : --ntlm -s -L -b ~/cookie.txt  https://intranet.linkbynet.com/v7/api/1.1/Equipment.json/${ID}/Login/DNS -c ~/cookie.txt 2> /dev/null | cut -d , -f 1 | sed 's/{"l_nom_dns"://' | sed 's/"//' |  sed 's/"//'`
+            ssh $DNS
+        fi
+        ;;
+"show_dns")
+	    if [[ $SEARCH =~ ^[A-Za-z0-9].*.com$ ]] || [[ $SEARCH =~ ^[A-Za-z0-9]* ]] ;then
+            trim=$(echo "$SEARCH" | cut -d. -f1)
+            ID=`curl.exe  -u : --ntlm -s -L -b ~/cookie.txt  https://intranet.linkbynet.com/v7/api/1.1/Equipment.json/Search?Query=$trim -c ~/cookie.txt 2> /dev/null | cut -d , -f 1 | sed 's/\[{"Id"://'`
+            DNS=`curl.exe  -u : --ntlm -s -L -b ~/cookie.txt  https://intranet.linkbynet.com/v7/api/1.1/Equipment.json/${ID}/Login/DNS -c ~/cookie.txt 2> /dev/null | cut -d , -f 1 | sed 's/{"l_nom_dns"://' | sed 's/"//' |  sed 's/"//'`
+            echo $DNS
+            fi
+        ;;
+"all_credentials")
+	   if [[ $SEARCH =~ ^[A-Za-z0-9].*.com$ ]] || [[ $SEARCH =~ ^[A-Za-z0-9]* ]] ;then
+           trim=$(echo "$SEARCH" | cut -d. -f1)
+           ID=`curl.exe  -u : --ntlm -s -L -b ~/cookie.txt  https://intranet.linkbynet.com/v7/api/1.1/Equipment.json/Search?Query=$trim -c ~/cookie.txt 2> /dev/null | cut -d , -f 1 | sed 's/\[{"Id"://'`
+           curl.exe  -u : --ntlm -s -L -b ~/cookie.txt  https://intranet.linkbynet.com/v7/api/1.1/Equipment.json/$ID/Login/ListPrivate -c ~/cookie.txt | jq '.[]'
+	   curl.exe  -u : --ntlm -s -L -b ~/cookie.txt https://intranet.linkbynet.com/v7/api/1.1/Equipment.json/$ID/Login/ListPublic -c ~/cookie.txt | jq '.[]'
+           fi
+;;
+esac
+done
+

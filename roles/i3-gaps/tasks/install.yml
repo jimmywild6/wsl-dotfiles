@@ -1,0 +1,16 @@
+---
+
+- name: Ensure required packages are installed
+  become: yes
+  pacman:
+    name: 
+      - i3-gaps
+      - feh
+    state: present
+
+- name: Copy config files
+  copy:
+    dest: "~/.config/"
+    mode: 0755
+    src: i3
+

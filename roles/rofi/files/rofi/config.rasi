@@ -1,0 +1,13 @@
+/* Rofi config file */
+configuration {
+    lines: 24;
+    font: "Source Sans Pro 12";
+    show-icons: true;
+    theme: "launcher";
+    display-window: "Window";
+    display-drun: "Search";
+    terminal: "alacritty";
+    ssh-client: "tmux-cssh";
+    modi: "combi,drun,ssh,run";
+    combi-modi: "drun,ssh,run";
+}

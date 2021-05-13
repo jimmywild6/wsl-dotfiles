@@ -1,0 +1,10 @@
+---
+- name: Install all necessary tools are installed
+  pacman:
+      name: "{{tools}}"
+      state: present
+
+- name: aur packages installation
+  aur:
+    name: "{{aur_packages}}"
+    user: k_13

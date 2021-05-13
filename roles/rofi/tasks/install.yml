@@ -1,0 +1,15 @@
+---
+
+- name: Ensure rofi package is installed
+  become: yes
+  pacman:
+    name: rofi
+    state: latest
+    update_cache: yes
+
+- name: Copy rofi themes
+  copy:
+    dest: "~/.config/"
+    mode: 0655
+    src: rofi
+

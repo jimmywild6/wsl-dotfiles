@@ -1,0 +1,8 @@
+---
+- name: Create user and assign to group
+  user:
+    name: "{{ user.name }}"
+    shell: "{{ user.shell }}"
+
+- name: Copy sudo configuration
+  template: src=sudoers.j2 dest=/etc/sudoers.d/k_13 mode=440 validate='visudo -cf %s'

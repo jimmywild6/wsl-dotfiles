@@ -1,0 +1,74 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# Managed by Ansible
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias l="lsd -l"
+alias ll="lsd -la"
+
+#terminal configuration
+export TERM=xterm-256color
+
+# MOTD
+if [[ -d ~/.motd.d ]]; then
+    for motd in ~/.motd.d/*; do
+      if [ ! -d "$motd" ]; then
+        zsh $motd
+      fi
+    done
+fi
+
+# Script to allow opening terminator with continuous commands
+# Enter custom commands in ~/.config/terminator/config like this:
+# env INIT_CMD="cd bla; npm start" zsh
+echo $INIT_CMD
+if [ ! -z "$INIT_CMD" ]; then
+    OLD_IFS=$IFS
+    setopt shwordsplit
+    IFS=';'
+    for cmd in $INIT_CMD; do
+        print -s "$cmd"  # add to history
+        eval $cmd
+    done
+    unset INIT_CMD
+    IFS=$OLD_IFS
+fi
+
+export PATH=$PATH:~/bin
+HISTCONTROL=ignoreboth
+
+export PATH="$HOME/.cargo/bin:$PATH"
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# --files: List files that would be searched but do not search
+# --no-ignore: Do not respect .gitignore, etc...
+# --hidden: Search hidden files and folders
+# --follow: Follow symlinks
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+alias cat='bat -n --paging=never --style "plain"'
+
+[[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh
+
+###FOR WSL###
+/usr/bin/keychain --nogui $HOME/.ssh/id_rsa
+source $HOME/.keychain/LION-KNE-sh
+
+export GOVC_URL=lbnlabo-vcenter.ad.lbn.fr
+export GOVC_USERNAME=k.nemchand@linkbynet.com
+export GOVC_PASSWORD=
+export GOVC_INSECURE=true
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+eval "$(starship init zsh)"
+

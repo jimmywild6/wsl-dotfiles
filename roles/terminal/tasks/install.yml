@@ -1,0 +1,38 @@
+---
+
+- name: Ensure required packages are installed
+  become: yes
+  pacman:
+    name: 
+      - terminator
+      - alacritty
+      - tilda
+      - tmux
+    state: present
+    update_cache: yes
+
+- name: Copy config files for terminator
+  copy:
+    dest: "~/.config/"
+    mode: 0755
+    src: terminator
+
+- name: Copy config files for alacritty 
+  copy:
+    dest: "~/.config/"
+    mode: 0755
+    src: alacritty
+
+- name: Copy config files for tilda
+  copy:
+    dest: "~/.config/"
+    mode: 0755
+    src: tilda
+
+
+- name: Copy config files for tmux
+  copy:
+    dest: "~/"
+    mode: 0755
+    src: .tmux.conf 
+

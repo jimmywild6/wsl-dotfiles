@@ -1,0 +1,14 @@
+---
+
+- name: Ensure required packages are removed
+  become: yes
+  pacman:
+    extra_args: --recursive
+    name: i3-gaps
+    state: absent
+
+- name: Ensure config directory is removed
+  file:
+    path: "~/.config/i3"
+    state: absent
+

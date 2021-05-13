@@ -1,0 +1,17 @@
+---
+- name: Copy pacman configuration file
+  copy:
+    src: pacman.conf
+    dest: /etc/pacman.conf
+
+- name: Pacman Keyring
+  command: pacman-key --init
+
+- name: Pacman Keyring
+  command: pacman-key --populate archlinux
+  
+- name: Verifying the master keys
+  pacman:
+    name: archlinux-keyring
+    state: present 
+

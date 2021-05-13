@@ -1,0 +1,2 @@
+conky.text = [[ ${image /root/.config/conky/conky_pingbeat/Capture.PNG -s 190x190} ]];
+

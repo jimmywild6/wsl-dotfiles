@@ -1,0 +1,14 @@
+---
+
+- name: Ensure rofi package is removed
+  become: yes
+  pacman:
+    extra_args: --recursive
+    name: rofi
+    state: absent
+
+- name: Ensure rofi config directory is removed
+  file:
+    path: "~/.config/rofi"
+    state: absent
+
