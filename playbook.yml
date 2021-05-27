@@ -4,17 +4,16 @@
   gather_facts: no
   roles:
     #- { role: pacman}
-    #- { role: tools}
+    - { role: tools}
       #- { role: i3-gaps}
       #- { role: users}
       #- { role: zsh}
       #- { role: polybar}
       #- { role: rofi}
-      # - { role: ranger}
-      # - { role: picom}
+      #- { role: ranger}
+      #- { role: picom}
       #- { role: conky}
       #- { role: terminal}
-      #- { role: users}
       #- { role: wsl}
-    - { role: sysadmin_packages}
+      #- { role: sysadmin_packages}
 

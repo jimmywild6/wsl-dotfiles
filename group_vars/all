@@ -9,46 +9,10 @@ sysadmin_packages:
     - openssh
     - jq
     - net-tools
+    - python-pip
     - rsync
     - inetutils
     - traceroute
-
-user:
-    name: k_13
-    shell: /bin/zsh
-
-oh_my_zsh_install: yes
-users:
-  - username: root
-    oh_my_zsh:
-      - theme: powerlevel10k/powerlevel10k
-        third_party_theme_url: https://github.com/romkatv/powerlevel10k.git
-        theme_folder_name: powerlevel10k
-	plugins:
-          - git
-          - autojump
-          - fzf
-  - username: k_13
-    oh_my_zsh:
-      - theme: powerlevel10k/powerlevel10k
-        third_party_theme_url: https://github.com/romkatv/powerlevel10k.git
-        theme_folder_name: powerlevel10k
-	plugins:
-          - git
-          - autojump
-          - fzf
-
-rofi: install
-
-polybar: install
-
-terminal: install
-
-i3: install 
-
-conky: install
-
-ranger: install 
 
 tools:
     - fzf
@@ -66,53 +30,50 @@ tools:
     - picom
     - adapta-gtk-theme
 
+aur_packages :
+    - polybar
+    - python-botocore-v2-git
+    - aws-cli-v2
+    - azure-cli
+    - saml2aws
+    - neovim-nightly-bin
+
+user:
+    name: k_13
+    shell: /bin/zsh
+
+oh_my_zsh_install: yes
+users:
+  - username: root
+    oh_my_zsh:
+      - theme: powerlevel10k/powerlevel10k
+        third_party_theme_url: https://github.com/romkatv/powerlevel10k.git
+        theme_folder_name: powerlevel10k
+        plugins:
+          - git
+          - autojump
+          - fzf
+  - username: k_13
+    oh_my_zsh:
+      - theme: powerlevel10k/powerlevel10k
+        third_party_theme_url: https://github.com/romkatv/powerlevel10k.git
+        theme_folder_name: powerlevel10k
+        plugins:
+          - git
+          - autojump
+          - fzf
+
+rofi: install
+
+polybar: install
+
+terminal: install
+
+i3: install 
+
+conky: install
+
+ranger: install 
+
 hashicorp:
     url :https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip
-
-desktop_environment: i3
-
-base_fonts:
-    - adobe-source-code-pro-fonts
-    - cantarell-fonts
-    - gsfonts
-    - noto-fonts
-    - terminus-font
-    - tex-gyre-fonts
-    - ttf-caladea
-    - ttf-carlito
-    - ttf-dejavu
-    - ttf-droid
-    - ttf-fira-mono
-    - ttf-ibm-plex
-    - ttf-inconsolata
-    - ttf-liberation
-    - ttf-opensans
-    - ttf-ubuntu-font-family
-
-aur_fonts:
-    - ttf-bitstream-charter
-    - ttf-cooper-hewitt
-    - ttf-courier-prime
-    - ttf-heuristica
-    - ttf-merriweather
-    - ttf-merriweather-sans
-    - ttf-oswald
-    - ttf-quintessential
-    - ttf-signika
-
-dotfiles:
-    url: git@github.com:pigmonkey/dotfiles.git
-    destination: projects/dotfiles
-    rcup_flags: -fx README.md
-
-aur:
-    dir: aur
-    packages:
-        - yay
-        - downgrade
-        - zplug
-        - miller
-        - myrepos
-        - ctmg
-        - spiped
-
