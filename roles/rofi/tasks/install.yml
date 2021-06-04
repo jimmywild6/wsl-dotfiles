@@ -7,9 +7,9 @@
     state: latest
     update_cache: yes
 
-- name: Copy rofi themes
-  copy:
-    dest: "~/.config/"
-    mode: 0655
-    src: rofi
+      #- name: Copy rofi themes
+      #  copy:
+      #    dest: "~/.config/"
+      #    mode: 0655
+      #    src: rofi
 

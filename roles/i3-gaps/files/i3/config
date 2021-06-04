@@ -397,7 +397,7 @@ bindsym $mod+m bar mode toggle
 
 # Use ggggton compositor
 exec --no-startup-id picom -b
-exec --no-startup-id tilda -h
+exec --no-startup-id tilda -g config_0 -h
 
 # Set natural scrolling
 exec_always --no-startup-id sh $HOME/dotfiles-manjaro-i3/scripts/natural-scrolling.sh

@@ -8,9 +8,9 @@
       - feh
     state: present
 
-- name: Copy config files
-  copy:
-    dest: "~/.config/"
-    mode: 0755
-    src: i3
+      #- name: Copy config files
+      #  copy:
+      #    dest: "~/.config/"
+      #    mode: 0755
+      #    src: i3
 

@@ -8,17 +8,17 @@
     state: present
     update_cache: yes
 
-- name: Copy config files
-  copy:
-    dest: "~/.config/"
-    mode: 0755
-    src: conky
-
-- name: Ensures local font directory exist
-  file: path="~/.local/share/" state=directory
-
-- name: Copy fonts for conky
-  copy:
-    dest: "~/.local/share/"
-    mode: 0755
-    src: fonts
+      #- name: Copy config files
+      #  copy:
+      #    dest: "~/.config/"
+      #    mode: 0755
+      #    src: conky
+      #
+      #- name: Ensures local font directory exist
+      #  file: path="~/.local/share/" state=directory
+      #
+      #- name: Copy fonts for conky
+      #  copy:
+      #    dest: "~/.local/share/"
+      #    mode: 0755
+      #    src: fonts

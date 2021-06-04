@@ -8,8 +8,8 @@
     state: present
     update_cache: yes
 
-- name: Copy config files for picom 
-  copy:
-    dest: "~/.config/"
-    mode: 0755
-    src: picom
+      #- name: Copy config files for picom 
+      #  copy:
+      #    dest: "~/.config/"
+      #    mode: 0755
+      #    src: picom

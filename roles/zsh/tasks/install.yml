@@ -51,76 +51,78 @@
     loop_var: user
     label: '{{ user.username }}'
 
-- name: Check existing theme directory
-  become: yes
-  become_user: '{{ item.0.username }}'
-  # core.autocrlf=input prevents https://github.com/robbyrussell/oh-my-zsh/issues/4402
-  stat :
-    path: ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/{{ item.1.theme_folder_name }} 
-  with_subelements:
-    - "{{ users }}"
-    - oh_my_zsh
-  register: theme_directory
-
-- name: Install third party themes
-  tags:
-    # Suppress warning: [ANSIBLE0006] git used in place of git module
-    # Git module doesn't allow us to set `core.autocrlf=input`.
-    - skip_ansible_lint
-  become: yes
-  become_user: '{{ item.0.username }}'
-  # core.autocrlf=input prevents https://github.com/robbyrussell/oh-my-zsh/issues/4402
-  shell: 'git clone -c core.autocrlf=input --depth=1 {{ item.1.third_party_theme_url }}  ~/.oh-my-zsh/custom/themes/{{ item.1.theme_folder_name }}'
-  args:
-    chdir: '~{{ item.0.username }}'
-  with_subelements: 
-    - "{{ users }}"
-    - oh_my_zsh
-  when: 
-    - "((item.1.oh_my_zsh | default({})).install | default(oh_my_zsh_install)) | bool"
-    - theme_directory.stat.isdir is defined
-
-- name: write .zshrc for users
-  become: yes
-  become_user: '{{ user.username }}'
-  template:
-    src: zshrc.j2
-    dest: '~{{ user.username }}/.zshrc'
-    backup: yes
-    mode: 'u=rw,go=r'
-  with_items: '{{ users }}'
-  when: "((user.oh_my_zsh | default({})).install | default(oh_my_zsh_install)) | bool"
-  loop_control:
-    loop_var: user
-    label: '{{ user.username }}'
-
-- name: create custom directory
-  become: yes
-  become_user: '{{ user.username }}'
-  file: 
-    path: '~{{ user.username }}/zsh_custom'
-    state: directory
-  with_items: '{{ users }}'
-  loop_control:
-    loop_var: user
-    label: '{{ user.username }}'
-
-- name: Push custom aliases
-  become: yes
-  become_user: '{{ user.username }}'
-  copy: 
-    src: zsh_aliases 
-    dest: '~{{ user.username }}/zsh_custom/alises.zsh' 
-    mode: 0755
-  with_items: '{{ users }}'
-  loop_control:
-    loop_var: user
-    label: '{{ user.username }}'
-
-- name: write .pk10 file for zsh
-  become: yes
-  become_user: '{{ user.username }}'
-  copy:
-    src: .p10k.zsh
-    dest: '~/'
-
+      #- name: Check existing theme directory
+      #  become: yes
+      #  become_user: '{{ item.0.username }}'
+      #  # core.autocrlf=input prevents https://github.com/robbyrussell/oh-my-zsh/issues/4402
+      #  file :
+      #    path: ~/.oh-my-zsh/{{ item.1.remove }}
+      #    state: absent
+      #  with_subelements: 
+      #    - "{{ users }}"
+      #    - oh_my_zsh
+      #
+      #- name: Install third party themes
+      #  tags:
+      #    # Suppress warning: [ANSIBLE0006] git used in place of git module
+      #    # Git module doesn't allow us to set `core.autocrlf=input`.
+      #    - skip_ansible_lint
+      #  become: yes
+      #  become_user: '{{ item.0.username }}'
+      #  # core.autocrlf=input prevents https://github.com/robbyrussell/oh-my-zsh/issues/4402
+      #  shell: 'git clone -c core.autocrlf=input --depth=1 {{ item.1.third_party_theme_url }}  ~/.oh-my-zsh/themes/'
+      #  args:
+      #    chdir: '~{{ item.0.username }}'
+      #  with_subelements: 
+      #    - "{{ users }}"
+      #    - oh_my_zsh
+      #  when: 
+      #    - "((item.1.oh_my_zsh | default({})).install | default(oh_my_zsh_install)) | bool"
+      #
+      #- name: write .zshrc for users
+      #  become: yes
+      #  become_user: '{{ user.username }}'
+      #  template:
+      #    src: zshrc.j2
+      #    dest: '~{{ user.username }}/.zshrc'
+      #    backup: yes
+      #    mode: 'u=rw,go=r'
+      #  with_items: '{{ users }}'
+      #  when: "((user.oh_my_zsh | default({})).install | default(oh_my_zsh_install)) | bool"
+      #  loop_control:
+      #    loop_var: user
+      #    label: '{{ user.username }}'
+      #
+      #- name: create custom directory
+      #  become: yes
+      #  become_user: '{{ user.username }}'
+      #  file: 
+      #    path: '~{{ user.username }}/zsh_custom'
+      #    state: directory
+      #  with_items: '{{ users }}'
+      #  loop_control:
+      #    loop_var: user
+      #    label: '{{ user.username }}'
+      #
+      #- name: Push custom aliases
+      #  become: yes
+      #  become_user: '{{ user.username }}'
+      #  copy: 
+      #    src: zsh_aliases 
+      #    dest: '~{{ user.username }}/zsh_custom/alises.zsh' 
+      #    mode: 0755
+      #  with_items: '{{ users }}'
+      #  loop_control:
+      #    loop_var: user
+      #    label: '{{ user.username }}'
+      #
+      #- name: write .pk10 file for zsh
+      #  become: yes
+      #  become_user: '{{ user.username }}'
+      #  copy:
+      #    src: .p10k.zsh
+      #    dest: '~/'
+      #  with_items: '{{ users }}'
+      #  loop_control:
+      #    loop_var: user
+      #    label: '{{ user.username }}'

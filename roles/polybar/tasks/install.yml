@@ -9,17 +9,17 @@
 - name: Ensure polybar(aur) packages is installed
   aur: name=polybar user=k_13
 
-- name: Copy config files
-  copy:
-    dest: "~/.config/"
-    mode: 0755
-    src: polybar
-
-- name: Ensures local font directory exist
-  file: path="~/.local/share/" state=directory
-
-- name: Copy fonts for polybar
-  copy:
-    dest: "~/.local/share/"
-    mode: 0755
-    src: fonts
+    #- name: Copy config files
+    #  copy:
+    #    dest: "~/.config/"
+    #    mode: 0755
+    #    src: polybar
+    #
+    #- name: Ensures local font directory exist
+    #  file: path="~/.local/share/" state=directory
+    #
+    #- name: Copy fonts for polybar
+    #  copy:
+    #    dest: "~/.local/share/"
+    #    mode: 0755
+    #    src: fonts

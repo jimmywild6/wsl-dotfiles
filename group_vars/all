@@ -10,12 +10,15 @@ sysadmin_packages:
     - jq
     - net-tools
     - python-pip
+    - lastpass-cli
     - rsync
     - inetutils
     - traceroute
+    - sshpass
 
 tools:
     - fzf
+    - ripgrep
     - lsd
     - geany
     - thunar
@@ -24,6 +27,7 @@ tools:
     - bat
     - starship
     - which
+    - htop
     - ccache
     - gcc
     - make
@@ -32,6 +36,7 @@ tools:
 
 aur_packages :
     - polybar
+    - zoxide-bin
     - python-botocore-v2-git
     - aws-cli-v2
     - azure-cli
@@ -53,6 +58,8 @@ users:
           - git
           - autojump
           - fzf
+        remove:
+          - .github
   - username: k_13
     oh_my_zsh:
       - theme: powerlevel10k/powerlevel10k
@@ -62,6 +69,8 @@ users:
           - git
           - autojump
           - fzf
+        remove:
+          - .github
 
 rofi: install
 
@@ -74,6 +83,3 @@ i3: install
 conky: install
 
 ranger: install 
-
-hashicorp:
-    url :https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip
