@@ -33,6 +33,7 @@ tools:
     - make
     - picom
     - adapta-gtk-theme
+    - chezmoi
 
 aur_packages :
     - polybar
