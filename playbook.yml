@@ -3,17 +3,17 @@
   become: yes
   gather_facts: no
   roles:
-    #- { role: pacman}
-    #- { role: users}
+    - { role: pacman}
+    - { role: users}
     - { role: tools}
-    #- { role: i3-gaps}
-    #- { role: zsh}
-    #- { role: polybar}
-    #- { role: rofi}
-    #- { role: ranger}
-    #- { role: picom}
-    #- { role: conky}
-    #- { role: terminal}
-    #- { role: wsl}
-    #- { role: sysadmin_packages}
+    - { role: i3-gaps}
+    - { role: zsh}
+    - { role: polybar}
+    - { role: rofi}
+    - { role: ranger}
+    - { role: picom}
+    - { role: conky}
+    - { role: terminal}
+    - { role: wsl}
+    - { role: sysadmin_packages}
 
